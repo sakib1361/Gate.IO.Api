@@ -45,7 +45,7 @@ public class GateApiAddresses
     public static GateApiAddresses TestNet = new()
     {
         // Rest Api
-        RestApiAddress = "https://fx-api-testnet.gateio.ws/api/v4",
+        RestApiAddress = "https://fx-api-testnet.gateio.ws",
 
         // Stream-Spot
         StreamSpotAddress = "wss://api.gateio.ws/ws/v4/",

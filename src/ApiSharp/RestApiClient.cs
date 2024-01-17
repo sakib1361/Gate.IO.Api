@@ -448,7 +448,7 @@ public abstract class RestApiClient : BaseClient
     protected virtual Task<RestCallResult<DateTime>> GetServerTimestampAsync()
         => Task.FromResult(new RestCallResult<DateTime>(null, null, DateTime.UtcNow, null, null));
 
-    protected internal virtual async Task<RestCallResult<bool>> SyncTimeAsync()
+    private async Task<RestCallResult<bool>> SyncTimeAsync()
     {
         var timeSyncParams = GetTimeSyncInfo();
         if (await timeSyncParams.TimeSyncState.Semaphore.WaitAsync(0).ConfigureAwait(false))

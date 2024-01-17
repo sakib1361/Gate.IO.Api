@@ -41,6 +41,11 @@ public sealed class GateRestApiClient
         return new Uri(ClientOptions.BaseAddress.AppendPath(api).AppendPath($"v{version}").AppendPath(section).AppendPath(endpoint));
     }
 
+    internal Uri GetCoreUrl(string api, string version, string section, string endpoint)
+    {
+        return new Uri(ClientOptions.CoreAddress.AppendPath(api).AppendPath($"v{version}").AppendPath(section).AppendPath(endpoint));
+    }
+
     internal Error ParseErrorResponse(JToken error)
     {
         if (!error.HasValues)

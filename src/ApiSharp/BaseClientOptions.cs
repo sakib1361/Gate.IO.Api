@@ -2,6 +2,8 @@
 
 public abstract class BaseClientOptions
 {
+    //This would be a statically set address
+    public string CoreAddress { get; protected set; }
     // Base Address
     public string BaseAddress { get; set; }
 

@@ -42,7 +42,7 @@ public class FuturesPosition
     /// Maximum leverage under current risk limit
     /// </summary>
     [JsonProperty("leverage_max")]
-    public int LeverageMax { get;  set; }
+    public double LeverageMax { get;  set; }
 
     /// <summary>
     /// Maintenance rate under current risk limit

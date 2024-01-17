@@ -89,7 +89,7 @@ public class RestApiSpotClient : RestApiClient
     #region Get server current time
     public async Task<RestCallResult<DateTime>> GetServerTimeAsync(CancellationToken ct = default)
     {
-        var result = await SendRequestInternal<SpotTime>(RootClient.GetUrl(api, version, spot, timeEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
+        var result = await SendRequestInternal<SpotTime>(RootClient.GetCoreUrl(api, version, spot, timeEndpoint), HttpMethod.Get, ct).ConfigureAwait(false);
         return result.As(result.Data?.Time ?? default);
     }
     #endregion
