@@ -28,7 +28,6 @@ public class RestApiWalletClient : RestApiClient
     private const string totalBalanceEndpoint = "total_balance";
 
     // Internal
-    internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO Wallet RestApi");
 
     // Root Client
@@ -36,7 +35,7 @@ public class RestApiWalletClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     public new GateRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal RestApiWalletClient(GateRestApiClient root) : base("Gate.IO Wallet RestApi", root.ClientOptions)
+    internal RestApiWalletClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -58,7 +57,7 @@ public class RestApiWalletClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

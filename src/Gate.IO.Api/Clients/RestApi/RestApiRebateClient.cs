@@ -14,7 +14,6 @@ public class RestApiRebateClient : RestApiClient
     private const string commissionHistoryEndpoint = "agency/commission_history";
 
     // Internal
-    internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO Rebate RestApi");
 
     // Root Client
@@ -22,7 +21,7 @@ public class RestApiRebateClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     public new GateRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal RestApiRebateClient(GateRestApiClient root) : base("Gate.IO Rebate RestApi", root.ClientOptions)
+    internal RestApiRebateClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -44,7 +43,7 @@ public class RestApiRebateClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

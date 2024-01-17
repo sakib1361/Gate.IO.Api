@@ -35,7 +35,7 @@ public class RestApiFuturesDeliveryClient : RestApiClient
     private const string settlePriceOrdersOrderIdEndpoint = "{settle}/price_orders/{order_id}";
 
     // Internal
-    internal Log Log { get => this.log; }
+    //internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO Delivery Futures RestApi");
 
     // Root Client
@@ -47,7 +47,7 @@ public class RestApiFuturesDeliveryClient : RestApiClient
     public RestApiFuturesDeliverySettleClient BTC { get; }
     public RestApiFuturesDeliverySettleClient USDT { get; }
 
-    internal RestApiFuturesDeliveryClient(GateRestApiClient root) : base("Gate.IO Delivery Futures RestApi", root.ClientOptions)
+    internal RestApiFuturesDeliveryClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -72,7 +72,7 @@ public class RestApiFuturesDeliveryClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

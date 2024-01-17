@@ -15,7 +15,6 @@ public class RestApiFlashSwapClient : RestApiClient
     private const string ordersPreviewEndpoint = "orders/preview";
 
     // Internal
-    internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO FlashSwap RestApi");
 
     // Root Client
@@ -23,7 +22,7 @@ public class RestApiFlashSwapClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     public new GateRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal RestApiFlashSwapClient(GateRestApiClient root) : base("Gate.IO FlashSwap RestApi", root.ClientOptions)
+    internal RestApiFlashSwapClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -45,7 +44,7 @@ public class RestApiFlashSwapClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

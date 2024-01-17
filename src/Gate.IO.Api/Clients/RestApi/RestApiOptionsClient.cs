@@ -29,7 +29,6 @@ public class RestApiOptionsClient : RestApiClient
     private const string myTradesEndpoint = "my_trades";
 
     // Internal
-    internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO Options RestApi");
 
     // Root Client
@@ -37,7 +36,7 @@ public class RestApiOptionsClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     public new GateRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal RestApiOptionsClient(GateRestApiClient root) : base("Gate.IO Options RestApi", root.ClientOptions)
+    internal RestApiOptionsClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -59,7 +58,7 @@ public class RestApiOptionsClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;

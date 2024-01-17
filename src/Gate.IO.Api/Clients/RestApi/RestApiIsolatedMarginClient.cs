@@ -22,7 +22,6 @@ public class RestApiIsolatedMarginClient : RestApiClient
     private const string borrowableEndpoint = "borrowable";
 
     // Internal
-    internal Log Log { get => this.log; }
     internal TimeSyncState TimeSyncState = new("Gate.IO Margin RestApi");
 
     // Root Client
@@ -30,7 +29,7 @@ public class RestApiIsolatedMarginClient : RestApiClient
     internal CultureInfo CI { get { return RootClient.CI; } }
     public new GateRestApiClientOptions ClientOptions { get { return RootClient.ClientOptions; } }
 
-    internal RestApiIsolatedMarginClient(GateRestApiClient root) : base("Gate.IO Margin RestApi", root.ClientOptions)
+    internal RestApiIsolatedMarginClient(GateRestApiClient root) : base(root.ClientOptions)
     {
         RootClient = root;
 
@@ -52,7 +51,7 @@ public class RestApiIsolatedMarginClient : RestApiClient
         => RootClient.Spot.GetServerTimeAsync();
 
     protected override TimeSyncInfo GetTimeSyncInfo()
-        => new(log, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
+        => new(_logger, ClientOptions.AutoTimestamp, ClientOptions.TimestampRecalculationInterval, TimeSyncState);
 
     protected override TimeSpan GetTimeOffset()
         => TimeSyncState.TimeOffset;
