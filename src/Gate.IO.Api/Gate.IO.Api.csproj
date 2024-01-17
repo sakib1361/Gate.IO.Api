@@ -23,10 +23,23 @@
 	</PackageReleaseNotes>
 	<PackageIcon>Gate.IO.png</PackageIcon>
 	<PackageIconUrl />
+	   <PackageReadmeFile>README.md</PackageReadmeFile>
 	<PackageProjectUrl>https://github.com/sakib1361/Gate.IO.Api</PackageProjectUrl>
 	<RepositoryUrl>https://github.com/sakib1361/Gate.IO.Api</RepositoryUrl>
   </PropertyGroup>
 
+	<ItemGroup>
+		<None Include="README.md">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
+	<ItemGroup>
+		<None Include="LICENSE">
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
+		</None>
+	</ItemGroup>
   <ItemGroup>
 	<None Include="Gate.IO.png" Pack="true" PackagePath="" />
   </ItemGroup>
