@@ -1,0 +1,4 @@
+// Start time of candlesticks, formatted in Unix timestamp in seconds
+long unixStartTime = ((DateTimeOffset)startTime).ToUnixTimeSeconds();
+long unixEndTime = ((DateTimeOffset)endTime).ToUnixTimeSeconds();
+var request = await client.Spot.GetCandlesticksAsync(ticker.Name, settings.CandleInterval.ConvertGate(), unixStartTime, unixEndTime, -1);
